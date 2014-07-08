@@ -217,6 +217,7 @@ anonymous user "twoots" when she fills in a form (`twoots#new`) and then
 submits the `POST` request (`twoots#create`).  If you observe the server log
 while creating a Twoot, you'll see the following:
 
+```text
     Started POST "/twoots" for 127.0.0.1 at 2014-06-21 14:38:02 -0400
     Processing by TwootsController#create as HTML
       Parameters: {"utf8"=>"✓",
@@ -230,6 +231,7 @@ while creating a Twoot, you'll see the following:
        (14.0ms)  COMMIT
     Redirected to http://localhost:3000/twoots/154
     Completed 302 Found in 25.7ms (ActiveRecord: 20.8ms)
+```
 
 it is of note that the `Processing` line notices that we asked for this action
 to happen from the context of HTML (`...as HTML`).  This implies that we might be
@@ -250,6 +252,7 @@ in JavaScript.
 
 2.  The request now looks like:
 
+```text
     Started POST "/twoots.js" for 127.0.0.1 at 2014-06-21 14:42:20 -0400
     Processing by TwootsController#create as JS
       Parameters: {"utf8"=>"✓",
@@ -263,6 +266,7 @@ in JavaScript.
     Jun 2014 18:42:20 UTC +00:00]]
        (0.8ms)  COMMIT
     Completed 406 Not Acceptable in 2.9ms (ActiveRecord: 1.3ms)
+```
 
 OK, so, neat, this jives with the previous section about `respond_to`:
 `TwootsController#create` can do different things based on the `Content-Type`
@@ -303,6 +307,7 @@ Here we say:
 So we add a `format.js` in the `TwootsController#create` and now when we
 resubmit a new Twoot we see...
 
+```text
     Started POST "/twoots.js" for 127.0.0.1 at 2014-06-21 14:59:56 -0400
     Processing by TwootsController#create as JS
       Parameters: {"utf8"=>"✓",
@@ -318,6 +323,7 @@ resubmit a new Twoot we see...
     ActionView::MissingTemplate (Missing template twoots/create, application/create
     with {:locale=>[:en], :formats=>[:js, :html], :handlers=>[:erb, :builder,
     :coffee]}. Searched in:
+```
 
 Rails told us that we're missing a `create.js.erb`.  We can create it!  In the
 same way that you could create an _action_.html.erb which interprets `<% %>`
@@ -336,6 +342,7 @@ alert("Your twoot about: '<%= @twoot.body %>' has been created!");
 
 Let's try re-submitting the request and seeing what our server log tells us:
 
+```text
     Started POST "/twoots.js" for 127.0.0.1 at 2014-06-21 15:02:57 -0400
     Processing by TwootsController#create as JS
       Parameters: {"utf8"=>"✓",
@@ -348,6 +355,7 @@ Let's try re-submitting the request and seeing what our server log tells us:
        (1.0ms)  COMMIT
       Rendered twoots/create.js.erb (1.1ms)
     Completed 200 OK in 3572.6ms (Views: 5.4ms | ActiveRecord: 2.2ms)
+```
 
 Awesome, 200 OK means success!  But what the browser shows, however is not
 something quite that we expect.  We see interpolated JavaScript that _if_ it

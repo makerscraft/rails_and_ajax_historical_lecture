@@ -581,6 +581,8 @@ an implementation of Ruby's Enumerable collection in JavaScript.  By providing
 an intelligent transpiler and the horsepower of Enumerable, Rails feels that,
 paired with [Turbolinks][], Rails _status quo_ is _plenty_ fast.
 
+
+
 I find CoffeeScript to be beautiful and elegant.  Foremost it is a superior
 whiteboarding technology.  Anyone who's whiteboarded pure JavaScript will tell
 you that keeping track of parentheses stacks and writing the word `function`
@@ -593,3 +595,4 @@ tool to have if you have a team which knows JS well.
 [111_respond_to]: http://apidock.com/rails/v1.1.1/ActionController/MimeResponds/InstanceMethods/respond_to
 [Turbolinks]: https://github.com/rails/turbolinks
 [scriptaculous]: http://script.aculo.us/
+[underscore]: http://underscorejs.org/
